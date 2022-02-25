@@ -1,6 +1,9 @@
 import fetch from 'node-fetch';
 import http from 'node:http';
 import https from 'node:https';
+import CacheableLookup from 'cacheable-lookup';
+
+const cacheable = new CacheableLookup({});
 
 
 const httpAgent = new http.Agent({
@@ -34,10 +37,16 @@ const options2 = {
     }
 };
 
+const options3 = options2;
+options3.lookup=cacheable.lookup
+
+
 const fetchBasic = (url) => fetch(url);
 
 const fetchSameAgent = (url) => fetch(url, options1);
 
 const fetchNewAgent = (url) => fetch(url, options2);
 
-export {fetchBasic, fetchNewAgent, fetchSameAgent}
+const fetchNewAgentDNSCache = (url) => fetch(url, options3);
+
+export {fetchBasic, fetchNewAgent, fetchSameAgent, fetchNewAgentDNSCache}

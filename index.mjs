@@ -1,6 +1,8 @@
 import { getUrls } from "./urlProvider.mjs";
-import { fetchBasic, fetchNewAgent, fetchSameAgent } from "./clientNodeFetch.mjs";
+import { fetchBasic, fetchNewAgent, fetchSameAgent, fetchNewAgentDNSCache } from "./clientNodeFetch.mjs";
 import { doRequest } from "./clientUndici.mjs";
+import { dummyRequest } from "./clientDummy.mjs";
+
 import {log} from './mem.mjs';
 import yargs from 'yargs'
 
@@ -16,7 +18,7 @@ for (let i = 0; i < size; i++) {
 
 console.log(`Fetchuje ${urls.length} URLi x ${runs} times [${urls.length * runs}]`);
 
-const _fetch = [fetchBasic, fetchSameAgent, fetchNewAgent, doRequest];
+const _fetch = [fetchBasic, fetchSameAgent, fetchNewAgent, doRequest, fetchNewAgentDNSCache, dummyRequest];
 
 const select = argv.o || 0;
 
